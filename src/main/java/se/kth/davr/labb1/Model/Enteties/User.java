@@ -1,0 +1,45 @@
+package se.kth.davr.labb1.Model.Enteties;
+
+public class User {
+
+    private int id;
+    private String username;
+    private String password; //elaborate during lab that this is not safe but for the sake of simplicity we do this
+    private Role role;
+
+    private enum Role {
+        customer,admin,employee
+    }
+
+    public User(String username, Role role, String password){
+        this.username = username;
+        this.password = password;
+        this.role = role;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    @Override
+    public String toString() {
+        return "User: " +
+                "[id:" + getId() +
+                " username: " + getUsername() +
+                " password: " + getPassword() +
+                " role: " + getRole() +
+                "]";
+    }
+}
