@@ -1,5 +1,7 @@
 package se.kth.davr.labb1.Model.Enteties;
 
+import com.google.protobuf.DescriptorProtos;
+
 public class User {
 
     private int id;
@@ -7,11 +9,9 @@ public class User {
     private String password; //elaborate during lab that this is not safe but for the sake of simplicity we do this
     private Role role;
 
-    private enum Role {
-        customer,admin,employee
-    }
 
-    public User(String username, Role role, String password){
+    public User(int id, String username, String password, Role role){
+        this.id = id;
         this.username = username;
         this.password = password;
         this.role = role;
