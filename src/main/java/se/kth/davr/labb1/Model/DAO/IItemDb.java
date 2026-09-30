@@ -1,6 +1,6 @@
 package se.kth.davr.labb1.Model.DAO;
 import se.kth.davr.labb1.Model.Enteties.Item;
-import java.sql.SQLException;
+import se.kth.davr.labb1.Model.Exceptions.SelectException;
 import java.util.List;
 
 /**
@@ -10,8 +10,9 @@ import java.util.List;
  */
 public interface IItemDb {
 
-    Item findItemById(int id) throws SQLException;
+    Item findItemById(int id) throws SelectException;
 
-    List<Item> getAllItems() throws SQLException;
+    // Return list of all items in shop and empty list if no items exist *
+    List<Item> getAllItems() throws SelectException;
 
 }

@@ -1,5 +1,4 @@
 package se.kth.davr.labb1.Model.DAO;
-
 import se.kth.davr.labb1.Model.Enteties.User;
 import se.kth.davr.labb1.Model.Exceptions.SelectException;
 

@@ -13,7 +13,7 @@ public class Order {
     public Order(int userId, LocalDateTime createdAt, ArrayList<OrderedItem> OrdersList) {
         this.userId = userId;
         this.createdAt = createdAt;
-        this.orderedItems = OrdersList;
+        this.orderedItems = OrdersList; //might change later
         this.total = calculateTotal();
     }
 
