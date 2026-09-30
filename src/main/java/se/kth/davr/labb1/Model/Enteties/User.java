@@ -7,11 +7,11 @@ public class User {
     private String password; //elaborate during lab that this is not safe but for the sake of simplicity we do this
     private Role role;
 
-    private enum Role {
+    public enum Role {
         customer,admin,employee
     }
 
-    public User(String username, Role role, String password){
+    public User(String username, Role role, String password, int id){
         this.username = username;
         this.password = password;
         this.role = role;
