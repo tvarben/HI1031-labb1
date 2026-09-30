@@ -19,6 +19,7 @@ public class UserDbImpl implements IUserDb{
         conn = DBManager.getConnection();
     }
 
+    @Override
     public User findUserById(int id) throws SelectException {
         String query = "SELECT * FROM `User` WHERE id = ?";
         try (PreparedStatement stm = conn.prepareStatement(query)){
@@ -39,6 +40,7 @@ public class UserDbImpl implements IUserDb{
         }
     }
 
+    @Override
     public User findUserByUsername(String username) throws SelectException{
         String query = "SELECT * FROM `User` WHERE username = ?";
         try (PreparedStatement stm = conn.prepareStatement(query)){
