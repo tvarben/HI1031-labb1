@@ -4,7 +4,7 @@ public class User {
 
     private int id;
     private String username;
-    private String password; //elaborate during lab that this is not safe but for the sake of simplicity we do this
+    private String password;
     private Role role;
 
     public User(int id, String username, String password, Role role) {

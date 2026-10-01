@@ -14,7 +14,7 @@ import java.util.List;
 public class ItemDbImpl {
     private Connection conn;
     public ItemDbImpl() throws SQLException {
-        this.conn = DBManager.getConnection();
+        this.conn = DBManager.getInstance().getConnection();
     }
 
     //by putting conn inside try() we make sure that the connection closes when method is done running or error occurs. When stm is closed then rs is also guaranteed to close.
