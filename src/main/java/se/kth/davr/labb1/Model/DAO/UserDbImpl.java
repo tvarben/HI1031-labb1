@@ -11,7 +11,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-
+//REMOVE CONN FROM CONSTRUCTOR BECAUSE IT LEAKS CONNECTIONS UNTIL CONNECTIONLIMIT IS HIT
 public class UserDbImpl implements IUserDb{
     private Connection conn;
 

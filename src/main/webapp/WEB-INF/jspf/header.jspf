@@ -1,0 +1,25 @@
+<%@ page pageEncoding="UTF-8" %>
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>${title != null ? title : 'Webshop'}</title>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
+</head>
+<body>
+<header class="site-header">
+    <h1>Min Webshop</h1>
+    <nav>
+        <a href="${pageContext.request.contextPath}/index.jsp">Hem</a>
+        <a href="${pageContext.request.contextPath}/cart">Varukorg (${sessionScope.cart.itemCount != null ? sessionScope.cart.itemCount : 0})</a>
+
+        <% if (session.getAttribute("loggedInUser") == null) { %>
+            <a href="${pageContext.request.contextPath}/login">Logga in</a>
+        <% } else { %>
+            <span>Hej, ${sessionScope.loggedInUser.username}!</span>
+            <a href="${pageContext.request.contextPath}/logout">Logga ut</a>
+        <% } %>
+    </nav>
+</header>
+<main>
