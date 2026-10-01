@@ -11,58 +11,48 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ItemDbImpl {
-    private Connection conn;
-    public ItemDbImpl() throws SQLException {
-        this.conn = DBManager.getInstance().getConnection();
-    }
+public class ItemDbImpl implements IItemDb {
 
-    //by putting conn inside try() we make sure that the connection closes when method is done running or error occurs. When stm is closed then rs is also guaranteed to close.
-    public Item findItemById(int id) throws SelectException{
-        String query = "SELECT * FROM Item where id = ?";
-        try(PreparedStatement stm = conn.prepareStatement(query)){
-            stm.setInt(1, id);
-            ResultSet rs = stm.executeQuery();
-            if(rs.next()){
-                Item result = new Item(
-                        rs.getInt("id"),
-                        rs.getString("name"),
-                        rs.getInt("price"),
-                        rs.getInt("quantity")
-                );
-                return result;
+    @Override
+    public Item findItemById(int id) throws SelectException {
+        String sql = "SELECT id, name, price, quantity FROM Item WHERE id = ?";
+
+        try(Connection conn = DBManager.getInstance().getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, id);
+
+            try(ResultSet rs = stmt.executeQuery()) {
+                return rs.next() ? readItem(rs) : null;
             }
-            return null; //return null if item was not found
-        }catch (SQLException e){
-            throw new SelectException("Error while searching for item by id",e);
+        } catch (SQLException e) {
+            throw new SelectException("Kunde inte hämta produkten", e);
         }
     }
 
-    public List<Item> getAllItems() throws SelectException{
-        List<Item> result = new ArrayList<>();
-        String query = "SELECT * FROM Item";
-        try(PreparedStatement stm = conn.prepareStatement(query)){
-            ResultSet rs = stm.executeQuery();
-            addToResult(result, rs);
-            return result;
-        }
-        catch (SQLException e) {
-            throw new SelectException("Error while retrieving all items", e);
-        }
-    }
+    @Override
+    public List<Item> getAllItems() throws SelectException {
+        String sql = "SELECT id, name, price, quantity FROM Item ORDER BY name";
+        List<Item> items = new ArrayList<>();
 
-    //this could be turned into a static generic <T> util method
-    private void addToResult(List<Item> result, ResultSet rs) throws SQLException{
-        while(rs.next()){
-            Item item = new Item(
-                    rs.getInt("id"),
-                    rs.getString("name"),
-                    rs.getInt("price"),
-                    rs.getInt("quantity")
-            );
-            result.add(item);
+        try(Connection conn = DBManager.getInstance().getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql);
+             ResultSet rs = stmt.executeQuery()) {
+
+            while(rs.next()) {
+                items.add(readItem(rs));
+            }
+            return items;
+        } catch (SQLException e) {
+            throw new SelectException("Kunde inte hämta produkterna", e);
         }
     }
 
-
+    private Item readItem(ResultSet rs) throws SQLException {
+        return new Item(
+                rs.getInt("id"),
+                rs.getString("name"),
+                rs.getInt("price"),
+                rs.getInt("quantity")
+        );
+    }
 }

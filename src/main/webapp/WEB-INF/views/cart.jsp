@@ -1,4 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib uri="jakarta.tags.core" prefix="c" %>
+
 <jsp:include page="/WEB-INF/jspf/header.jspf">
     <jsp:param name="title" value="Varukorg"/>
 </jsp:include>
@@ -6,23 +8,52 @@
 <div class="card">
     <h2>Din varukorg</h2>
 
-    <c:if test="${cart.itemCount == 0}">
-        <p>Korgen är tom.</p>
+    <c:if test="${not empty error}">
+        <p style="color: red;">
+            <c:out value="${error}"/>
+        </p>
     </c:if>
 
-    <c:if test="${cart.itemCount > 0}">
-        <table>
-            <tr><th>Vara</th><th>Antal</th><th>Pris</th></tr>
-            <c:forEach var="orderedItem" items="${cart.items}">
-                <tr>
-                    <td>${orderedItem.item.name}</td>
-                    <td>${orderedItem.quantity}</td>
-                    <td>${orderedItem.calculateTotalPrice()} kr</td>
-                </tr>
-            </c:forEach>
-        </table>
-        <p><strong>Totalt: ${cart.total} kr</strong></p>
-    </c:if>
+    <c:choose>
+        <c:when test="${empty cart.items}">
+            <p>Korgen är tom.</p>
+        </c:when>
+
+        <c:otherwise>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Vara</th>
+                        <th>Antal</th>
+                        <th>Styckpris</th>
+                        <th>Summa</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <c:forEach var="cartItem" items="${cart.items}">
+                        <tr>
+                            <td><c:out value="${cartItem.item.name}"/></td>
+                            <td><c:out value="${cartItem.quantity}"/></td>
+                            <td><c:out value="${cartItem.item.price}"/> kr</td>
+                            <td><c:out value="${cartItem.totalPrice}"/> kr</td>
+                        </tr>
+                    </c:forEach>
+                </tbody>
+            </table>
+
+            <p>
+                <strong>
+                    Totalt: <c:out value="${cart.total}"/> kr
+                </strong>
+            </p>
+        </c:otherwise>
+    </c:choose>
+
+    <a class="btn"
+       href="${pageContext.request.contextPath}/items">
+        Fortsätt handla
+    </a>
 </div>
 
 <jsp:include page="/WEB-INF/jspf/footer.jspf"/>

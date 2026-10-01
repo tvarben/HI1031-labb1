@@ -1,4 +1,5 @@
 package se.kth.davr.labb1.Model.Services;
+import se.kth.davr.labb1.Model.DAO.IUserDb;
 import se.kth.davr.labb1.Model.DAO.UserDbImpl;
 import se.kth.davr.labb1.Model.Enteties.User;
 import se.kth.davr.labb1.Model.Exceptions.SelectException;
@@ -7,7 +8,7 @@ import java.sql.SQLException;
 
 public class UserService {
 
-    private final UserDbImpl userConn;
+    private final IUserDb userConn;
 
     public UserService() throws SQLException {
         this.userConn = new UserDbImpl();

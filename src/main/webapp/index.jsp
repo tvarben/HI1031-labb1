@@ -6,7 +6,13 @@
 <div class="card">
     <h2>Webshop</h2>
     <p>Bläddra bland produkter och lägg dem i din varukorg.</p>
-    <a class="btn" href="${pageContext.request.contextPath}/cart">Visa varukorg</a>
+
+    <a class="btn" href="${pageContext.request.contextPath}/items">
+        Visa produkter
+    </a>
+    <a class="btn" href="${pageContext.request.contextPath}/cart">
+        Visa varukorg
+    </a>
 </div>
 
 <jsp:include page="/WEB-INF/jspf/footer.jspf"/>
