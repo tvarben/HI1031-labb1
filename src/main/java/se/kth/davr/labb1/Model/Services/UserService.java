@@ -7,7 +7,7 @@ import java.sql.SQLException;
 
 public class UserService {
 
-    private UserDbImpl userConn;
+    private final UserDbImpl userConn;
 
     public UserService() throws SQLException {
         this.userConn = new UserDbImpl();

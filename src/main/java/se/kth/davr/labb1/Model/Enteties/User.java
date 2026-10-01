@@ -1,12 +1,10 @@
 package se.kth.davr.labb1.Model.Enteties;
 
-import com.google.protobuf.DescriptorProtos;
-
 public class User {
 
     private int id;
     private String username;
-    private String password; //elaborate during lab that this is not safe but for the sake of simplicity we do this
+    private String password;
     private Role role;
 
 

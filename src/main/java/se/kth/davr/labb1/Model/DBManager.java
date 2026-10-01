@@ -10,7 +10,27 @@ public class DBManager {
     private static final String USER = "webshop_user";
     private static final String PASSWORD = "1234";
 
-    public static Connection getConnection() throws SQLException {
+    private static DBManager instance;
+
+    static {
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException("MySQL Driver not found", e);
+        }
+    }
+
+    private DBManager() {
+    }
+
+    public static synchronized DBManager getInstance() {
+        if (instance == null) {
+            instance = new DBManager();
+        }
+        return instance;
+    }
+
+    public Connection getConnection() throws SQLException {
         return DriverManager.getConnection(URL, USER, PASSWORD);
     }
 }

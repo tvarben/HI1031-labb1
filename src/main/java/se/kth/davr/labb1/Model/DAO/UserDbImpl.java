@@ -11,17 +11,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-//REMOVE CONN FROM CONSTRUCTOR BECAUSE IT LEAKS CONNECTIONS UNTIL CONNECTIONLIMIT IS HIT
 public class UserDbImpl implements IUserDb{
-    private Connection conn;
-
-    public UserDbImpl() throws SQLException {
-        conn = DBManager.getConnection();
-    }
 
     public User findUserById(int id) throws SelectException {
         String query = "SELECT * FROM `User` WHERE id = ?";
-        try (PreparedStatement stm = conn.prepareStatement(query)){
+        try (Connection conn = DBManager.getInstance().getConnection(); PreparedStatement stm = conn.prepareStatement(query)){
             stm.setInt(1, id);
             ResultSet rs = stm.executeQuery();
             if (rs.next()) {
@@ -41,7 +35,7 @@ public class UserDbImpl implements IUserDb{
 
     public User findUserByUsername(String username) throws SelectException{
         String query = "SELECT * FROM `User` WHERE username = ?";
-        try (PreparedStatement stm = conn.prepareStatement(query)){
+        try (Connection conn = DBManager.getInstance().getConnection(); PreparedStatement stm = conn.prepareStatement(query)){
             stm.setString(1, username);
             ResultSet rs = stm.executeQuery();
             if (rs.next()) {
