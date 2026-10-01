@@ -4,12 +4,12 @@ import se.kth.davr.labb1.Model.Exceptions.SelectException;
 
 /**
  * This interface declares methods for querying User
- *
- * LOGIN METHOD MAY BE NECESSARY
  */
 public interface IUserDb {
 
+    //returns null if user is not found
     User findUserById(int id) throws SelectException;
 
+    //returns null is user is not found
     User findUserByUsername(String username) throws SelectException;
 }
