@@ -10,9 +10,9 @@ import java.util.List;
 
 public class ItemService {
 
-    private final IItemDb itemDb;
+    private final IItemDb itemDb; //use interface for low coupeling
 
-    public ItemService() throws SQLException {
+    public ItemService(){
         this(new ItemDbImpl());
     }
 

@@ -12,15 +12,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ItemDbImpl implements IItemDb{
-    private Connection conn;
-    public ItemDbImpl() throws SQLException {
-        this.conn = DBManager.getInstance().getConnection();
-    }
 
     //by putting conn inside try() we make sure that the connection closes when method is done running or error occurs. When stm is closed then rs is also guaranteed to close.
     public Item findItemById(int id) throws SelectException{
         String query = "SELECT * FROM Item where id = ?";
-        try(PreparedStatement stm = conn.prepareStatement(query)){
+        try(Connection conn = DBManager.getInstance().getConnection();
+            PreparedStatement stm = conn.prepareStatement(query)){
             stm.setInt(1, id);
             ResultSet rs = stm.executeQuery();
             if(rs.next()){
@@ -41,7 +38,8 @@ public class ItemDbImpl implements IItemDb{
     public List<Item> getAllItems() throws SelectException{
         List<Item> result = new ArrayList<>();
         String query = "SELECT * FROM Item";
-        try(PreparedStatement stm = conn.prepareStatement(query)){
+        try(Connection conn = DBManager.getInstance().getConnection();
+                PreparedStatement stm = conn.prepareStatement(query)){
             ResultSet rs = stm.executeQuery();
             addToResult(result, rs);
             return result;
