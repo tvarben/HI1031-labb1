@@ -11,7 +11,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ItemDbImpl {
+public class ItemDbImpl implements IItemDb{
     private Connection conn;
     public ItemDbImpl() throws SQLException {
         this.conn = DBManager.getInstance().getConnection();

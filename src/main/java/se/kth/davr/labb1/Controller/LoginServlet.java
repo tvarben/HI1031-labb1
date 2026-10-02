@@ -35,8 +35,9 @@ public class LoginServlet extends HttpServlet {
         }
         User user = userService.authenticate(username,password);
         if(user == null){
+            request.setAttribute("invalidCredentials", "Wrong username or password");
             doGet(request,response);
-            return;//if user does not exist, reload website. This should display if login is right or wrong too
+            return; // reload with error message
         }
         HttpSession session = request.getSession();
         session.setAttribute("loggedInUser", user);

@@ -4,6 +4,9 @@
 
 <div class="card">
     <h2>Logga in</h2>
+    <% if (request.getAttribute("invalidCredentials") != null) { %>
+        <p style="color: red;"><%= request.getAttribute("invalidCredentials") %></p>
+    <% } %>
     <form action="${pageContext.request.contextPath}/login" method="post">
         <div class="form-group">
             <label for="username">Användarnamn</label>
@@ -16,5 +19,4 @@
         <button type="submit" class="btn">Logga in</button>
     </form>
 </div>
-
 <%@ include file="/WEB-INF/jspf/footer.jspf" %>
