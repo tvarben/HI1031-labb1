@@ -5,12 +5,11 @@ import se.kth.davr.labb1.Model.DAO.ItemDbImpl;
 import se.kth.davr.labb1.Model.Enteties.Item;
 import se.kth.davr.labb1.Model.Exceptions.SelectException;
 
-import java.sql.SQLException;
 import java.util.List;
 
 public class ItemService {
 
-    private final IItemDb itemDb; //use interface for low coupeling
+    private final IItemDb itemDb; //use interface for low coupling
 
     public ItemService(){
         this(new ItemDbImpl());
