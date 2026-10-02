@@ -48,7 +48,6 @@
         </c:otherwise>
     </c:choose>
 
-    <a class="btn" href="${pageContext.request.contextPath}/items">Fortsätt handla</a>
-    <a class="btn" href="${pageContext.request.contextPath}/checkout">Betala</a>
+    <a class="btn" href="${pageContext.request.contextPath}/checkout">Bekräfta order</a>
 </div>
 <%@ include file="/WEB-INF/jspf/footer.jspf" %>

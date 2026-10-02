@@ -14,6 +14,4 @@ public interface IOrderedItemDb {
     List<OrderedItem> findOrderedItemByOrderId(int id) throws SQLException;
 
     List<OrderedItem> findOrderedItemByItemId(int id) throws SQLException;
-
-    void addOrderedItem(OrderedItem orderedItem) throws SQLException;
 }
