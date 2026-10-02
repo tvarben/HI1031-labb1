@@ -1,17 +1,13 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib uri="jakarta.tags.core" prefix="c" %>
-
-<jsp:include page="/WEB-INF/jspf/header.jspf">
-    <jsp:param name="title" value="Produkter"/>
-</jsp:include>
+<% request.setAttribute("title", "Produkter"); %>
+<%@ include file="/WEB-INF/jspf/header.jspf" %>
 
 <div class="card">
     <h2>Produkter</h2>
-
     <c:if test="${empty items}">
         <p>Det finns inga produkter ännu.</p>
     </c:if>
-
     <c:forEach var="item" items="${items}">
         <div class="card">
             <h3><c:out value="${item.name}"/></h3>
@@ -35,4 +31,4 @@
     </c:forEach>
 </div>
 
-<jsp:include page="/WEB-INF/jspf/footer.jspf"/>
+<%@ include file="/WEB-INF/jspf/footer.jspf" %>

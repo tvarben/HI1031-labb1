@@ -6,6 +6,7 @@
     <h2>Webshop</h2>
     <p>Bläddra bland produkter och lägg dem i din varukorg.</p>
     <a class="btn" href="${pageContext.request.contextPath}/cart">Visa varukorg</a>
+    <a class="btn" href="${pageContext.request.contextPath}/items">Visa produkter</a>
 </div>
 
 <%@ include file="/WEB-INF/jspf/footer.jspf" %>
