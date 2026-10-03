@@ -7,6 +7,7 @@ import se.kth.davr.labb1.Model.DAO.ItemDbImpl;
 import se.kth.davr.labb1.Model.Enteties.Cart;
 import se.kth.davr.labb1.Model.Enteties.CartItem;
 import se.kth.davr.labb1.Model.Enteties.Item;
+import se.kth.davr.labb1.Model.Exceptions.InsufficientStockException;
 import se.kth.davr.labb1.Model.Exceptions.SelectException;
 
 import java.util.List;

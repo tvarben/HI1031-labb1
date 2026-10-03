@@ -11,6 +11,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class UserDbImpl implements IUserDb{
 
     @Override
@@ -52,6 +55,27 @@ public class UserDbImpl implements IUserDb{
             return null; //retun null to indicate nothing found
         } catch (SQLException e) {
             throw new SelectException("Error while searching for User by Username", e);
+        }
+    }
+
+    @Override
+    public List<User> getAllUsers() throws SelectException {
+        String sql = "SELECT id, username, password, role FROM `User` ORDER BY username";
+        List<User> users = new ArrayList<>();
+        try(Connection conn = DBManager.getInstance().getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql);
+             ResultSet rs = stmt.executeQuery()) {
+            while(rs.next()) {
+                users.add(new User(
+                        rs.getInt("id"),
+                        rs.getString("username"),
+                        rs.getString("password"),
+                        Role.valueOf(rs.getString("role"))
+                ));
+            }
+            return users;
+        } catch (SQLException e) {
+            throw new SelectException("Kunde inte hämta användarna", e);
         }
     }
 }
