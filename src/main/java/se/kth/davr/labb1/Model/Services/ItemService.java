@@ -9,11 +9,12 @@ import java.util.List;
 
 public class ItemService {
 
-    private final IItemDb itemDb;
+    private final IItemDb itemDb; //use interface for low coupling
 
-    public ItemService() {
+    public ItemService(){
         this(new ItemDbImpl());
     }
+
     public ItemService(IItemDb itemDb) {
         this.itemDb = itemDb;
     }

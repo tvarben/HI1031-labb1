@@ -8,11 +8,11 @@ public class Cart {
 
     private final List<CartItem> items = new ArrayList<>();
 
+    //synchronized if user is on the same session with multiple tabs.
     public synchronized void addItem(Item item, int quantity) {
         if(item == null || quantity <= 0) {
             throw new IllegalArgumentException("Antalet måste vara positivt.");
         }
-
         for(int i = 0; i < items.size(); i++) {
             CartItem existing = items.get(i);
 

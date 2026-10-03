@@ -8,10 +8,15 @@ public class CartService {
 
     private final ItemService itemService;
 
-    public CartService() {
-        this.itemService = new ItemService();
+    public CartService(ItemService itemService) {
+        this.itemService = itemService;
     }
 
+    public CartService() {
+        this(new ItemService());
+    }
+
+    //cart is a session object
     public void addItem(Cart cart, int itemId, int quantity) throws SelectException {
         if(quantity <= 0) {
             throw new IllegalArgumentException("Antalet måste vara minst 1.");

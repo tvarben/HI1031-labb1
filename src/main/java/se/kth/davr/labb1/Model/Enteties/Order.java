@@ -10,7 +10,8 @@ public class Order {
     private int total;
     private ArrayList<OrderedItem> orderedItems;
 
-    public Order(int userId, LocalDateTime createdAt, ArrayList<OrderedItem> OrdersList) {
+    public Order(int id, int userId, LocalDateTime createdAt, ArrayList<OrderedItem> OrdersList) {
+        this.id = id;
         this.userId = userId;
         this.createdAt = createdAt;
         this.orderedItems = OrdersList; //might change later
