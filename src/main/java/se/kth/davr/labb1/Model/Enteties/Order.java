@@ -1,20 +1,30 @@
 package se.kth.davr.labb1.Model.Enteties;
 
+import java.sql.Date;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.List;
 
 public class Order {
     private int id;
     private int userId;
     private LocalDateTime createdAt;
     private int total;
-    private ArrayList<OrderedItem> orderedItems;
+    private List<OrderedItem> orderedItems;
 
-    public Order(int id, int userId, LocalDateTime createdAt, ArrayList<OrderedItem> OrdersList) {
+    public Order(int id, int userId, LocalDateTime createdAt, List<OrderedItem> OrdersList) {
         this.id = id;
         this.userId = userId;
         this.createdAt = createdAt;
         this.orderedItems = OrdersList; //might change later
+        this.total = calculateTotal();
+    }
+
+    public Order(int userId, List<OrderedItem> orderedItemList){
+        this.id = 0;
+        this.userId = userId;
+        this.createdAt = null;
+        this.orderedItems = new ArrayList<>(orderedItemList);
         this.total = calculateTotal();
     }
 

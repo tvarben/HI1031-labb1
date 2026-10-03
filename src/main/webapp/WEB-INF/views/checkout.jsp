@@ -45,9 +45,9 @@
                     Totalt: <c:out value="${cart.total}"/> kr
                 </strong>
             </p>
+            <form action="${pageContext.request.contextPath}/checkout" method="post">
+            <button type="submit" class="btn">Bekräfta order</button></form>
         </c:otherwise>
     </c:choose>
-
-    <a class="btn" href="${pageContext.request.contextPath}/checkout">Bekräfta order</a>
 </div>
 <%@ include file="/WEB-INF/jspf/footer.jspf" %>

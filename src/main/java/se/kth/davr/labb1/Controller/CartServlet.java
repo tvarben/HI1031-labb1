@@ -31,7 +31,6 @@ public class CartServlet extends HttpServlet {
                 cart = new Cart();
                 session.setAttribute("cart", cart);
             }
-
             return cart;
         }
     }
@@ -45,7 +44,6 @@ public class CartServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
         try {
             int itemId = Integer.parseInt(request.getParameter("itemId"));
             int quantity = Integer.parseInt(request.getParameter("quantity"));
