@@ -33,7 +33,7 @@ public class IOrderDbImpl implements IOrderDb {
             for (OrderedItem io : orderedItems) {
                 stm.setInt(1, orderId);
                 stm.setInt(2, io.getItemId());
-                stm.setInt(3, io.getUnitPrice());
+                stm.setInt(3, io.getQuantity());
                 stm.setInt(4, io.getUnitPrice());
                 stm.addBatch();
             }

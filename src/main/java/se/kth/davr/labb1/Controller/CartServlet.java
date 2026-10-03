@@ -26,7 +26,6 @@ public class CartServlet extends HttpServlet {
     private Cart getCart(HttpSession session) {
         synchronized (session) {
             Cart cart = (Cart) session.getAttribute("cart");
-
             if (cart == null) {
                 cart = new Cart();
                 session.setAttribute("cart", cart);
