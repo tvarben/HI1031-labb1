@@ -5,6 +5,7 @@ import se.kth.davr.labb1.Model.DBManager;
 import se.kth.davr.labb1.Model.Enteties.Role;
 import se.kth.davr.labb1.Model.Enteties.User;
 import se.kth.davr.labb1.Model.Exceptions.SelectException;
+import se.kth.davr.labb1.Model.Exceptions.UpdateException;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -76,6 +77,25 @@ public class UserDbImpl implements IUserDb{
             return users;
         } catch (SQLException e) {
             throw new SelectException("Kunde inte hämta användarna", e);
+        }
+    }
+
+    @Override
+    public void updateUserRole(int userId, Role role) throws UpdateException {
+        String sql = "UPDATE `User` SET role = ? WHERE id = ?";
+
+        try(Connection conn = DBManager.getInstance().getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setString(1, role.name());
+            stmt.setInt(2, userId);
+            int affectedRows = stmt.executeUpdate();
+            if(affectedRows != 1) {
+                throw new UpdateException("Användarens roll kunde inte uppdateras");
+            }
+
+        } catch (SQLException e) {
+            throw new UpdateException("Databasfel vid rolländring", e);
         }
     }
 }
