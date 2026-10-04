@@ -1,10 +1,9 @@
 package se.kth.davr.labb1.Model.DAO;
 import se.kth.davr.labb1.Model.Enteties.Order;
+import se.kth.davr.labb1.Model.Enteties.OrderedItem;
 import se.kth.davr.labb1.Model.Exceptions.InsertException;
-import se.kth.davr.labb1.Model.Exceptions.SelectException;
+import se.kth.davr.labb1.Model.Exceptions.InsufficientStockException;
 
-import java.sql.SQLException;
-import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -20,5 +19,5 @@ public interface IOrderDb {
 //    List<Order> findOrdersByDate(LocalDateTime date) throws SelectException;
 
     //adds all orderItems as well
-    void addOrder(Order order) throws InsertException;
+    int addCompleteOrder(Order order, List<OrderedItem> oi) throws InsertException, InsufficientStockException;
 }
