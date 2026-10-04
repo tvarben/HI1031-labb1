@@ -48,4 +48,8 @@ public class Cart {
         }
         return count;
     }
+
+    public synchronized void removeItem(int itemId) {
+        items.removeIf(cartItem -> cartItem.getItem().getId() == itemId);
+    }
 }

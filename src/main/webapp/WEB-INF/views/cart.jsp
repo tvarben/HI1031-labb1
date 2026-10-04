@@ -27,6 +27,7 @@
                         <th>Antal</th>
                         <th>Styckpris</th>
                         <th>Summa</th>
+                        <th>Åtgärd</th>
                     </tr>
                 </thead>
 
@@ -37,19 +38,35 @@
                             <td><c:out value="${cartItem.quantity}"/></td>
                             <td><c:out value="${cartItem.item.price}"/> kr</td>
                             <td><c:out value="${cartItem.totalPrice}"/> kr</td>
+                            <td>
+                                <form method="post"
+                                      action="${pageContext.request.contextPath}/cart">
+                                    <input type="hidden"
+                                           name="action"
+                                           value="remove"/>
+                                    <input type="hidden"
+                                           name="itemId"
+                                           value="${cartItem.item.id}"/>
+                                    <button type="submit" class="btn">
+                                        Ta bort
+                                    </button>
+                                </form>
+                            </td>
                         </tr>
                     </c:forEach>
                 </tbody>
             </table>
-
             <p>
                 <strong>
                     Totalt: <c:out value="${cart.total}"/> kr
                 </strong>
             </p>
+            <a class="btn"
+               href="${pageContext.request.contextPath}/checkout">
+                Gå till kassan
+            </a>
         </c:otherwise>
     </c:choose>
-
     <a class="btn"
        href="${pageContext.request.contextPath}/items">
         Fortsätt handla

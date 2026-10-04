@@ -45,22 +45,28 @@ public class CartServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
             int itemId = Integer.parseInt(request.getParameter("itemId"));
-            int quantity = Integer.parseInt(request.getParameter("quantity"));
+            String action = request.getParameter("action");
             Cart cart = getCart(request.getSession());
-            cartService.addItem(cart, itemId, quantity);
+            if ("remove".equals(action)) {
+                cartService.removeItem(cart, itemId);
+            } else if (action == null || "add".equals(action)) {
+                int quantity = Integer.parseInt(request.getParameter("quantity"));
 
+                cartService.addItem(cart, itemId, quantity);
+            } else {
+                throw new IllegalArgumentException("Ogiltig åtgärd.");
+            }
             response.sendRedirect(request.getContextPath() + "/cart");
-
+        } catch (NumberFormatException e) {
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            request.setAttribute("error", "Ange giltigt produkt-ID och antal");
+            doGet(request, response);
         } catch (IllegalArgumentException e) {
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-            request.setAttribute(
-                    "error",
-                    "Kunde inte lägga till varan. Kontrollera produkt och antal."
-            );
+            request.setAttribute("error", e.getMessage());
             doGet(request, response);
-
         } catch (SelectException e) {
-            throw new ServletException("Databasfel när varan skulle hämtas", e);
+            throw new ServletException("Kunde inte hämta produkten", e);
         }
     }
 }
