@@ -8,8 +8,7 @@ import jakarta.servlet.http.*;
 
 @WebServlet(name = "logoutServlet", value = "/logout")
 
-public class LogoutServlet {
-
+public class LogoutServlet extends HttpServlet{
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession(false); //false gör att vi returnerar null om sessionen inte finns
         if(session != null) {

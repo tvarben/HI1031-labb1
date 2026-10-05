@@ -5,7 +5,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>${param.title != null ? param.title : 'Webshop'}</title>
+<title><c:out value="${not empty requestScope.title
+    ? requestScope.title
+    : param.title}" default="Webshop"/></title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
 </head>
 <body>
@@ -18,9 +20,13 @@
         <c:if test="${empty sessionScope.loggedInUser}">
             <a href="${pageContext.request.contextPath}/login">Logga in</a>
         </c:if>
-
+        <c:if test="${sessionScope.loggedInUser.role == 'admin'}">
+            <a href="${pageContext.request.contextPath}/admin/users">
+                Användaradministration
+            </a>
+        </c:if>
         <c:if test="${not empty sessionScope.loggedInUser}">
-            <span>Hej, ${sessionScope.loggedInUser.username}!</span>
+            <span>Inloggad som ${sessionScope.loggedInUser.username}!</span>
             <a href="${pageContext.request.contextPath}/logout">Logga ut</a>
         </c:if>
     </nav>
