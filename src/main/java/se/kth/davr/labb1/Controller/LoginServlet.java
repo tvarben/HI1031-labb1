@@ -28,16 +28,16 @@ public class LoginServlet extends HttpServlet {
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
-        if(username == null || password == null){
-            request.setAttribute("Error", "Enter username & password");
+        if(username == null || username.trim().isEmpty() || password == null || password.isEmpty()){
+            request.setAttribute("error", "Ange användarnamn och lösenord.");
             doGet(request,response);
             return;
         }
         User user = userService.authenticate(username,password);
         if(user == null){
-            request.setAttribute("invalidCredentials", "Wrong username or password");
+            request.setAttribute("error", "Fel användarnamn eller lösenord.");
             doGet(request,response);
-            return; // reload with error message
+            return;
         }
         HttpSession session = request.getSession();
         session.setAttribute("loggedInUser", user);

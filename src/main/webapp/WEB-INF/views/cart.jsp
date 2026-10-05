@@ -1,7 +1,9 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib uri="jakarta.tags.core" prefix="c" %>
-<% request.setAttribute("title", "Varukorg"); %>
-<%@ include file="/WEB-INF/jspf/header.jspf" %>
+
+<jsp:include page="/WEB-INF/jspf/header.jspf">
+    <jsp:param name="title" value="Varukorg"/>
+</jsp:include>
 
 <div class="card">
     <h2>Din varukorg</h2>
@@ -25,6 +27,7 @@
                         <th>Antal</th>
                         <th>Styckpris</th>
                         <th>Summa</th>
+                        <th>Åtgärd</th>
                     </tr>
                 </thead>
 
@@ -35,20 +38,39 @@
                             <td><c:out value="${cartItem.quantity}"/></td>
                             <td><c:out value="${cartItem.item.price}"/> kr</td>
                             <td><c:out value="${cartItem.totalPrice}"/> kr</td>
+                            <td>
+                                <form method="post"
+                                      action="${pageContext.request.contextPath}/cart">
+                                    <input type="hidden"
+                                           name="action"
+                                           value="remove"/>
+                                    <input type="hidden"
+                                           name="itemId"
+                                           value="${cartItem.item.id}"/>
+                                    <button type="submit" class="btn">
+                                        Ta bort
+                                    </button>
+                                </form>
+                            </td>
                         </tr>
                     </c:forEach>
                 </tbody>
             </table>
-
             <p>
                 <strong>
                     Totalt: <c:out value="${cart.total}"/> kr
                 </strong>
             </p>
+            <a class="btn"
+               href="${pageContext.request.contextPath}/checkout">
+                Gå till kassan
+            </a>
         </c:otherwise>
     </c:choose>
-
-    <a class="btn" href="${pageContext.request.contextPath}/items">Fortsätt handla</a>
-    <a class="btn" href="${pageContext.request.contextPath}/checkout">Betala</a>
+    <a class="btn"
+       href="${pageContext.request.contextPath}/items">
+        Fortsätt handla
+    </a>
 </div>
-<%@ include file="/WEB-INF/jspf/footer.jspf" %>
+
+<jsp:include page="/WEB-INF/jspf/footer.jspf"/>
