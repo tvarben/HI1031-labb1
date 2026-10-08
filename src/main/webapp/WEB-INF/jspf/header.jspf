@@ -15,7 +15,11 @@
     <h1>Min Webshop</h1>
     <nav>
         <a href="${pageContext.request.contextPath}/index.jsp">Hem</a>
-        <a href="${pageContext.request.contextPath}/cart">Varukorg (${sessionScope.cart.itemCount != null ? sessionScope.cart.itemCount : 0})</a>
+        <a href="${pageContext.request.contextPath}/cart">
+            Varukorg (${empty sessionScope.cartView
+                ? 0
+                : sessionScope.cartView.itemCount})
+        </a>
 
         <c:if test="${empty sessionScope.loggedInUser}">
             <a href="${pageContext.request.contextPath}/login">Logga in</a>

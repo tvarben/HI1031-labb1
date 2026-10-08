@@ -7,6 +7,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
+import se.kth.davr.labb1.Model.DTO.CartDTO;
 import se.kth.davr.labb1.Model.Enteties.Cart;
 import se.kth.davr.labb1.Model.Exceptions.SelectException;
 import se.kth.davr.labb1.Model.Services.CartService;
@@ -36,9 +37,12 @@ public class CartServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.setAttribute("cart", getCart(request.getSession()));
-        request.getRequestDispatcher("/WEB-INF/views/cart.jsp")
-                .forward(request, response);
+        Cart cart = getCart(request.getSession());
+        CartDTO cartDTO = cartService.getCartDTO(cart);
+
+        request.setAttribute("cart", cartDTO);
+        request.getSession().setAttribute("cartView", cartDTO);
+        request.getRequestDispatcher("/WEB-INF/views/cart.jsp").forward(request, response);
     }
 
     @Override

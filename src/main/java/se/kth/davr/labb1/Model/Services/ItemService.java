@@ -4,7 +4,10 @@ import se.kth.davr.labb1.Model.DAO.IItemDb;
 import se.kth.davr.labb1.Model.DAO.ItemDbImpl;
 import se.kth.davr.labb1.Model.Enteties.Item;
 import se.kth.davr.labb1.Model.Exceptions.SelectException;
+import se.kth.davr.labb1.Model.DTO.ItemDTO;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class ItemService {
@@ -31,5 +34,12 @@ public class ItemService {
             throw new IllegalArgumentException("Produkten finns inte.");
         }
         return item;
+    }
+    public List<ItemDTO> getAllItemDTOs() throws SelectException {
+        List<ItemDTO> result = new ArrayList<>();
+        for(Item item : itemDb.getAllItems()) {
+            result.add(new ItemDTO(item));
+        }
+        return Collections.unmodifiableList(result);
     }
 }

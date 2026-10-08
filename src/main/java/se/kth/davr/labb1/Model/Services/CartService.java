@@ -4,6 +4,11 @@ import se.kth.davr.labb1.Model.Enteties.Cart;
 import se.kth.davr.labb1.Model.Enteties.CartItem;
 import se.kth.davr.labb1.Model.Enteties.Item;
 import se.kth.davr.labb1.Model.Exceptions.SelectException;
+import se.kth.davr.labb1.Model.DTO.CartDTO;
+import se.kth.davr.labb1.Model.DTO.CartItemDTO;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class CartService {
 
@@ -52,5 +57,16 @@ public class CartService {
             throw new IllegalArgumentException("Ogiltigt produkt-ID");
         }
         cart.removeItem(itemId);
+    }
+    public CartDTO getCartDTO(Cart cart) {
+        List<CartItemDTO> rows = new ArrayList<>();
+        if(cart != null) {
+            synchronized (cart) {
+                for(CartItem cartItem : cart.getItems()) {
+                    rows.add(new CartItemDTO(cartItem));
+                }
+            }
+        }
+        return new CartDTO(rows);
     }
 }
